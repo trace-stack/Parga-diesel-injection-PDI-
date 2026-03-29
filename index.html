@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDI Parga Diesel Injection • Splash-Free Additive Protection</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .hero-bg { background: linear-gradient(rgba(10,37,64,0.85), rgba(10,37,64,0.85)), url('https://picsum.photos/id/1016/2000/1200') center/cover no-repeat; }
+    .product-card { transition: all 0.3s; }
+    .product-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
+    .tab-btn.active { border-bottom: 3px solid #f97316; color: #f97316; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .star-rating { display: flex; gap: 4px; cursor: pointer; }
+    .star-rating i { font-size: 1.5rem; color: #d1d5db; transition: color 0.15s; }
+    .star-rating i.lit { color: #f59e0b; }
+    .experience-card { transition: box-shadow 0.2s; }
+    .experience-card:hover { box-shadow: 0 8px 24px -4px rgb(0 0 0 / 0.12); }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- HEADER -->
+  <header class="bg-[#0A2540] text-white sticky top-0 z-50 shadow">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <i class="fa-solid fa-gas-pump text-3xl"></i>
+        <h1 class="text-3xl font-semibold tracking-tight">PDI Parga</h1>
+      </div>
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#" class="hover:text-orange-400 transition">Home</a>
+        <a href="#shop" class="hover:text-orange-400 transition">Shop</a>
+        <a href="#how-it-works" class="hover:text-orange-400 transition">How It Works</a>
+        <a href="#experiences" class="hover:text-orange-400 transition">Experiences</a>
+        <a href="#" class="hover:text-orange-400 transition">Contact</a>
+      </nav>
+      <div class="flex items-center gap-6">
+        <div class="relative">
+          <input type="text" placeholder="Search PDI products..."
+                 class="bg-white/10 text-white placeholder:text-white/50 rounded-full px-5 py-2 pl-10 w-72 focus:outline-none focus:bg-white/20">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-3 text-white/70"></i>
+        </div>
+        <button class="relative hover:scale-110 transition">
+          <i class="fa-solid fa-heart text-2xl"></i>
+        </button>
+        <button onclick="toggleCart()" class="relative hover:scale-110 transition">
+          <i class="fa-solid fa-shopping-cart text-2xl"></i>
+          <span id="cart-count" class="absolute -top-1 -right-1 bg-orange-500 text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+        </button>
+        <button class="flex items-center gap-2 hover:text-orange-400 transition">
+          <i class="fa-solid fa-user"></i>
+          <span class="hidden md:block font-medium">Account</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero-bg text-white h-screen flex items-center">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h2 class="text-6xl md:text-7xl font-bold tracking-tighter mb-4">PDI Parga Diesel Injection</h2>
+      <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Timed • Splash-Free • Diesel Additive Delivery</p>
+      <p class="text-lg max-w-md mx-auto mb-10">Protect your injection pump with added lubrication — every fill-up.</p>
+      <button onclick="addToCart(1)"
+              class="bg-orange-500 hover:bg-orange-600 text-white font-semibold text-xl px-10 py-4 rounded-2xl inline-flex items-center gap-3">
+        Add to Cart – $89
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- PRODUCT DESCRIPTION -->
+  <section class="max-w-7xl mx-auto px-6 py-12 bg-white shadow-inner">
+    <div class="max-w-3xl mx-auto text-center">
+      <h3 class="text-3xl font-semibold mb-6">The PDI Parga Diesel Injection System</h3>
+      <p class="text-lg leading-relaxed text-gray-700">
+        The PDI Parga Diesel Injection precisely injects timed diesel additive fluid directly into your diesel tank filler neck to provide completely splash-free additive delivery to your diesel tank.
+        This advanced system delivers superior diesel injection pump protection with added lubrication for longer engine life and peak performance.
+      </p>
+      <div class="flex justify-center gap-8 mt-10 text-sm font-medium">
+        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Splash-Free</div>
+        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Timed Injection</div>
+        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Pump Protection</div>
+        <div class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Added Lubrication</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PRODUCT -->
+  <section id="shop" class="max-w-7xl mx-auto px-6 py-16">
+    <h2 class="text-4xl font-semibold mb-8 flex items-center gap-3">
+      Shop PDI Parga Diesel Injection
+      <span class="flex-1 h-px bg-gray-200"></span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <!-- Main Product Card -->
+      <div class="product-card bg-white rounded-3xl overflow-hidden shadow col-span-2 md:col-span-1">
+        <img src="https://picsum.photos/id/160/600/400" alt="PDI Parga Diesel Injection Device" class="w-full h-72 object-cover">
+        <div class="p-8">
+          <h3 class="font-semibold text-3xl">PDI Parga Diesel Injection System</h3>
+          <p class="text-orange-500 text-4xl font-bold mt-2">$89</p>
+          <div class="flex items-center gap-1 mt-2 text-amber-400">
+            ★★★★☆ <span class="text-gray-400 text-sm ml-2">(48 reviews)</span>
+          </div>
+          <ul class="mt-6 space-y-3 text-sm">
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Timed additive injection</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Splash-free filler neck delivery</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Protects diesel injection pump</li>
+            <li class="flex items-start gap-2"><i class="fa-solid fa-check mt-1 text-green-500"></i> Adds essential lubrication</li>
+          </ul>
+          <button onclick="addToCart(1)"
+                  class="mt-8 w-full bg-black hover:bg-gray-900 text-white font-medium py-5 rounded-2xl flex items-center justify-center gap-3 text-lg">
+            <i class="fa-solid fa-cart-plus"></i> Add to Cart
+          </button>
+        </div>
+      </div>
+
+      <!-- Benefits Sidebar -->
+      <div class="col-span-2 md:col-span-2 grid grid-cols-2 gap-6 text-sm">
+        <div class="bg-white p-6 rounded-3xl shadow">
+          <i class="fa-solid fa-clock text-4xl text-orange-500 mb-4"></i>
+          <h4 class="font-semibold">Timed Delivery</h4>
+          <p class="text-gray-600">Automatically meters the exact amount of additive every time you fill up.</p>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow">
+          <i class="fa-solid fa-shield-halved text-4xl text-orange-500 mb-4"></i>
+          <h4 class="font-semibold">Injection Pump Protection</h4>
+          <p class="text-gray-600">Prevents wear and keeps your high-pressure pump running like new.</p>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow">
+          <i class="fa-solid fa-droplet text-4xl text-orange-500 mb-4"></i>
+          <h4 class="font-semibold">Splash-Free</h4>
+          <p class="text-gray-600">No mess, no waste — additive goes straight into the tank.</p>
+        </div>
+        <div class="bg-white p-6 rounded-3xl shadow">
+          <i class="fa-solid fa-oil-can text-4xl text-orange-500 mb-4"></i>
+          <h4 class="font-semibold">Added Lubrication</h4>
+          <p class="text-gray-600">Improves fuel system efficiency and extends component life.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EXPERIENCE TAB ===================== -->
+  <section id="experiences" class="max-w-7xl mx-auto px-6 py-16">
+    <h2 class="text-4xl font-semibold mb-2">Customer Experiences</h2>
+    <p class="text-gray-500 mb-8">Real stories from PDI Parga owners — see what our community is saying.</p>
+
+    <!-- Tab Navigation -->
+    <div class="border-b border-gray-200 mb-8">
+      <div class="flex gap-0 -mb-px">
+        <button id="tab-btn-reviews" onclick="switchTab('reviews')"
+                class="tab-btn active px-8 py-4 text-sm font-semibold text-gray-600 hover:text-orange-500 transition border-b-[3px] border-orange-500 text-orange-500">
+          <i class="fa-solid fa-star mr-2"></i>Reviews
+        </button>
+        <button id="tab-btn-stories" onclick="switchTab('stories')"
+                class="tab-btn px-8 py-4 text-sm font-semibold text-gray-600 hover:text-orange-500 transition border-b-[3px] border-transparent">
+          <i class="fa-solid fa-road mr-2"></i>Stories
+        </button>
+        <button id="tab-btn-share" onclick="switchTab('share')"
+                class="tab-btn px-8 py-4 text-sm font-semibold text-gray-600 hover:text-orange-500 transition border-b-[3px] border-transparent">
+          <i class="fa-solid fa-pen-to-square mr-2"></i>Share Your Experience
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab: Reviews -->
+    <div id="tab-reviews" class="tab-panel active">
+      <!-- Rating summary -->
+      <div class="bg-white rounded-3xl shadow p-8 mb-8 flex flex-col md:flex-row gap-8 items-center">
+        <div class="text-center min-w-[120px]">
+          <div class="text-7xl font-bold text-orange-500">4.7</div>
+          <div class="text-amber-400 text-2xl mt-1">★★★★★</div>
+          <div class="text-gray-500 text-sm mt-1">48 reviews</div>
+        </div>
+        <div class="flex-1 space-y-2 w-full">
+          <div class="flex items-center gap-3 text-sm">
+            <span class="w-8 text-right text-gray-600">5★</span>
+            <div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden">
+              <div class="bg-amber-400 h-3 rounded-full" style="width:72%"></div>
+            </div>
+            <span class="w-10 text-gray-500">72%</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <span class="w-8 text-right text-gray-600">4★</span>
+            <div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden">
+              <div class="bg-amber-400 h-3 rounded-full" style="width:18%"></div>
+            </div>
+            <span class="w-10 text-gray-500">18%</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <span class="w-8 text-right text-gray-600">3★</span>
+            <div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden">
+              <div class="bg-amber-400 h-3 rounded-full" style="width:6%"></div>
+            </div>
+            <span class="w-10 text-gray-500">6%</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <span class="w-8 text-right text-gray-600">2★</span>
+            <div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden">
+              <div class="bg-amber-400 h-3 rounded-full" style="width:3%"></div>
+            </div>
+            <span class="w-10 text-gray-500">3%</span>
+          </div>
+          <div class="flex items-center gap-3 text-sm">
+            <span class="w-8 text-right text-gray-600">1★</span>
+            <div class="flex-1 bg-gray-100 rounded-full h-3 overflow-hidden">
+              <div class="bg-amber-400 h-3 rounded-full" style="width:1%"></div>
+            </div>
+            <span class="w-10 text-gray-500">1%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review cards -->
+      <div id="review-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Seeded reviews rendered by JS -->
+      </div>
+
+      <div class="text-center mt-8">
+        <button onclick="switchTab('share')"
+                class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-2xl">
+          <i class="fa-solid fa-pen-to-square mr-2"></i>Write a Review
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab: Stories -->
+    <div id="tab-stories" class="tab-panel">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <article class="experience-card bg-white rounded-3xl shadow overflow-hidden">
+          <img src="https://picsum.photos/id/111/600/300" alt="Truck on highway" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <span class="text-xs font-semibold bg-orange-100 text-orange-600 px-3 py-1 rounded-full">Long Haul Trucking</span>
+            <h3 class="text-xl font-semibold mt-4 mb-2">500,000 km and Still Injecting Strong</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              "I've been running PDI Parga on my Volvo FH16 since the first fill-up. Half a million kilometres later my injection pump has never been rebuilt. The timed delivery means I never forget an additive — it just happens."
+            </p>
+            <p class="mt-4 text-xs text-gray-400 font-medium">— Marco V., long-haul driver</p>
+          </div>
+        </article>
+
+        <article class="experience-card bg-white rounded-3xl shadow overflow-hidden">
+          <img src="https://picsum.photos/id/133/600/300" alt="Farm tractor" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <span class="text-xs font-semibold bg-green-100 text-green-600 px-3 py-1 rounded-full">Agricultural</span>
+            <h3 class="text-xl font-semibold mt-4 mb-2">Harvest Season Without a Breakdown</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              "Our fleet of John Deere tractors runs non-stop during harvest. After fitting PDI Parga across all four machines we sailed through the entire season with zero injection pump issues. Paid for itself in the first week."
+            </p>
+            <p class="mt-4 text-xs text-gray-400 font-medium">— Lisa B., farm operations manager</p>
+          </div>
+        </article>
+
+        <article class="experience-card bg-white rounded-3xl shadow overflow-hidden">
+          <img src="https://picsum.photos/id/180/600/300" alt="4x4 off-road" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <span class="text-xs font-semibold bg-blue-100 text-blue-600 px-3 py-1 rounded-full">Off-Road</span>
+            <h3 class="text-xl font-semibold mt-4 mb-2">Remote Trails, Zero Worries</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">
+              "When you're hours from the nearest town, pump failure isn't an option. PDI Parga gives me peace of mind on every remote adventure. The splash-free design is a game-changer at dusty outback fuel stops."
+            </p>
+            <p class="mt-4 text-xs text-gray-400 font-medium">— Ryan O., overlander</p>
+          </div>
+        </article>
+      </div>
+
+      <div class="text-center mt-8">
+        <button onclick="switchTab('share')"
+                class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-2xl">
+          <i class="fa-solid fa-pen-to-square mr-2"></i>Share Your Story
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab: Share Your Experience -->
+    <div id="tab-share" class="tab-panel">
+      <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow p-10">
+        <h3 class="text-2xl font-semibold mb-2">Share Your PDI Parga Experience</h3>
+        <p class="text-gray-500 text-sm mb-8">Your story helps other diesel owners make the right choice. All fields are required.</p>
+
+        <form id="experience-form" onsubmit="submitExperience(event)" novalidate>
+          <!-- Name -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="exp-name">Your Name</label>
+            <input id="exp-name" type="text" placeholder="e.g. Marco V."
+                   class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400">
+            <p id="exp-name-err" class="text-red-500 text-xs mt-1 hidden">Please enter your name.</p>
+          </div>
+
+          <!-- Vehicle / Use-case -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="exp-vehicle">Vehicle / Use-Case</label>
+            <input id="exp-vehicle" type="text" placeholder="e.g. Ford Ranger, long-haul truck, tractor…"
+                   class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400">
+            <p id="exp-vehicle-err" class="text-red-500 text-xs mt-1 hidden">Please enter your vehicle or use-case.</p>
+          </div>
+
+          <!-- Star rating -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Your Rating</label>
+            <div class="star-rating" id="star-rating" role="group" aria-label="Star rating">
+              <i class="fa-solid fa-star" data-value="1" onclick="setRating(1)" onmouseover="hoverRating(1)" onmouseout="unhoverRating()"></i>
+              <i class="fa-solid fa-star" data-value="2" onclick="setRating(2)" onmouseover="hoverRating(2)" onmouseout="unhoverRating()"></i>
+              <i class="fa-solid fa-star" data-value="3" onclick="setRating(3)" onmouseover="hoverRating(3)" onmouseout="unhoverRating()"></i>
+              <i class="fa-solid fa-star" data-value="4" onclick="setRating(4)" onmouseover="hoverRating(4)" onmouseout="unhoverRating()"></i>
+              <i class="fa-solid fa-star" data-value="5" onclick="setRating(5)" onmouseover="hoverRating(5)" onmouseout="unhoverRating()"></i>
+            </div>
+            <p id="exp-rating-err" class="text-red-500 text-xs mt-1 hidden">Please select a rating.</p>
+          </div>
+
+          <!-- Experience text -->
+          <div class="mb-8">
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="exp-text">Your Experience</label>
+            <textarea id="exp-text" rows="5" placeholder="Tell us how PDI Parga has performed for you…"
+                      class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"></textarea>
+            <p id="exp-text-err" class="text-red-500 text-xs mt-1 hidden">Please describe your experience (minimum 20 characters).</p>
+          </div>
+
+          <button type="submit"
+                  class="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 rounded-2xl text-lg transition">
+            <i class="fa-solid fa-paper-plane mr-2"></i>Submit Experience
+          </button>
+        </form>
+
+        <div id="exp-success" class="hidden text-center py-10">
+          <i class="fa-solid fa-circle-check text-6xl text-green-500 mb-4"></i>
+          <h4 class="text-2xl font-semibold mb-2">Thank You!</h4>
+          <p class="text-gray-500 mb-6">Your experience has been added. See it in the Reviews tab!</p>
+          <button onclick="switchTab('reviews')"
+                  class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3 rounded-2xl">
+            View All Reviews
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- =================== END EXPERIENCE TAB =================== -->
+
+  <!-- SIMPLE CART MODAL -->
+  <div id="cart-modal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[100]">
+    <div class="bg-white rounded-3xl max-w-md w-full mx-4 p-8">
+      <h3 class="text-2xl font-semibold mb-6 flex items-center justify-between">
+        Your Cart <span onclick="toggleCart()" class="cursor-pointer text-gray-400 hover:text-gray-600">✕</span>
+      </h3>
+      <div id="cart-items" class="space-y-4 text-sm"></div>
+      <div class="border-t pt-6 mt-6 flex justify-between text-xl font-semibold">
+        <span>Total</span>
+        <span id="cart-total">$0</span>
+      </div>
+      <button onclick="checkout()"
+              class="mt-8 w-full bg-orange-500 hover:bg-orange-600 text-white py-6 text-xl font-semibold rounded-2xl">
+        Proceed to Checkout
+      </button>
+      <p class="text-center text-xs text-gray-500 mt-4">Demo only – ready for real Stripe payments</p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#0A2540] text-white py-16">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-3 text-2xl mb-4">
+          <i class="fa-solid fa-gas-pump"></i>
+          <span class="font-semibold">PDI Parga</span>
+        </div>
+        <p class="text-white/70 text-sm">Precision diesel additive injection for ultimate pump protection.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Quick Links</h4>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li><a href="#" class="hover:text-white">Shop System</a></li>
+          <li><a href="#" class="hover:text-white">Refill Additives</a></li>
+          <li><a href="#" class="hover:text-white">Installation Guide</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Why PDI Parga?</h4>
+        <p class="text-white/70 text-sm">Engineered for modern diesel engines. Zero mess. Maximum protection.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Accepted Payments</h4>
+        <div class="flex gap-6 text-4xl text-white/70">
+          <i class="fa-brands fa-cc-visa"></i>
+          <i class="fa-brands fa-cc-mastercard"></i>
+          <i class="fa-brands fa-cc-paypal"></i>
+        </div>
+        <p class="mt-8 text-xs text-white/40">© 2026 PDI Parga • Self-built online sales platform</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ── Helpers ─────────────────────────────────────────────── */
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    /* ── Cart ────────────────────────────────────────────────── */
+    let cart = [];
+    function addToCart(id) {
+      const product = {name: 'PDI Parga Diesel Injection System', price: 89};
+      cart.push(product);
+      document.getElementById('cart-count').textContent = cart.length;
+      alert(`${product.name} added to cart!`);
+    }
+    function toggleCart() {
+      const modal   = document.getElementById('cart-modal');
+      const itemsDiv = document.getElementById('cart-items');
+      const totalEl  = document.getElementById('cart-total');
+      if (modal.classList.contains('hidden')) {
+        itemsDiv.innerHTML = cart.length
+          ? cart.map(item => `
+              <div class="flex justify-between items-center py-3 border-b">
+                <span>${escapeHtml(item.name)}</span>
+                <span class="font-medium">$${escapeHtml(String(item.price))}</span>
+              </div>`).join('')
+          : '<p class="text-gray-400 py-8 text-center">Your cart is empty</p>';
+        totalEl.textContent = '$' + cart.reduce((sum, item) => sum + item.price, 0);
+        modal.classList.remove('hidden');
+      } else {
+        modal.classList.add('hidden');
+      }
+    }
+    function checkout() {
+      if (cart.length === 0) return;
+      alert('🎉 Thank you for choosing PDI Parga!\n\nYour diesel injection pump will thank you.\n\n(In a live store this opens secure checkout.)');
+      cart = [];
+      document.getElementById('cart-count').textContent = '0';
+      toggleCart();
+    }
+
+    /* ── Experience Tab ─────────────────────────────────────── */
+
+    // Seeded reviews
+    const seededReviews = [
+      { name: 'Marco V.',   vehicle: 'Volvo FH16 – long-haul',  rating: 5, text: 'Half a million kilometres and my injection pump has never needed rebuilding. The timed, splash-free delivery means I never forget an additive.' },
+      { name: 'Lisa B.',    vehicle: 'John Deere 6M fleet',      rating: 5, text: 'Fitted PDI Parga across four tractors before harvest. Zero injection pump issues all season. Paid for itself in the first week.' },
+      { name: 'Ryan O.',    vehicle: 'Toyota LandCruiser 79',    rating: 5, text: 'The splash-free design is a game-changer at dusty outback fuel stops. Peace of mind on every remote adventure.' },
+      { name: 'Derek M.',   vehicle: 'Ford Ranger 3.2',         rating: 4, text: 'Fuel economy improved noticeably after fitting. Installation was straightforward and the build quality feels premium.' },
+      { name: 'Sandra K.',  vehicle: 'Mercedes Sprinter fleet',  rating: 5, text: 'Running 12 vans in our courier fleet. PDI Parga cut our average maintenance cost per vehicle by 30% in the first year.' },
+      { name: 'Pieter J.',  vehicle: 'Isuzu D-Max',             rating: 4, text: 'Great product. Would give 5 stars if the additive reservoir were slightly larger, but performance-wise it is flawless.' },
+    ];
+
+    let allReviews = [...seededReviews];
+
+    function renderReviews() {
+      const list = document.getElementById('review-list');
+      list.innerHTML = allReviews.map(r => {
+        const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+        return `
+          <div class="experience-card bg-white rounded-3xl shadow p-6">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-orange-100 flex items-center justify-center text-orange-600 font-bold text-lg">
+                  ${escapeHtml(r.name.charAt(0).toUpperCase())}
+                </div>
+                <div>
+                  <div class="font-semibold text-sm">${escapeHtml(r.name)}</div>
+                  <div class="text-xs text-gray-400">${escapeHtml(r.vehicle)}</div>
+                </div>
+              </div>
+              <span class="text-amber-400 text-lg">${stars}</span>
+            </div>
+            <p class="text-gray-600 text-sm leading-relaxed">"${escapeHtml(r.text)}"</p>
+          </div>`;
+      }).join('');
+    }
+
+    // Tab switching
+    function switchTab(name) {
+      ['reviews', 'stories', 'share'].forEach(t => {
+        const btn   = document.getElementById('tab-btn-' + t);
+        const panel = document.getElementById('tab-' + t);
+        const isActive = t === name;
+        panel.classList.toggle('active', isActive);
+        btn.classList.toggle('active', isActive);
+        btn.style.borderBottomColor = isActive ? '#f97316' : 'transparent';
+        btn.style.color = isActive ? '#f97316' : '';
+      });
+    }
+
+    // Star rating widget
+    let selectedRating = 0;
+    function hoverRating(val) {
+      const stars = document.querySelectorAll('#star-rating i');
+      stars.forEach((s, i) => s.classList.toggle('lit', i < val));
+    }
+    function unhoverRating() {
+      const stars = document.querySelectorAll('#star-rating i');
+      stars.forEach((s, i) => s.classList.toggle('lit', i < selectedRating));
+    }
+    function setRating(val) {
+      selectedRating = val;
+      unhoverRating();
+    }
+
+    // Form submission
+    function submitExperience(e) {
+      e.preventDefault();
+      const name    = document.getElementById('exp-name').value.trim();
+      const vehicle = document.getElementById('exp-vehicle').value.trim();
+      const text    = document.getElementById('exp-text').value.trim();
+
+      let valid = true;
+
+      const nameErr    = document.getElementById('exp-name-err');
+      const vehicleErr = document.getElementById('exp-vehicle-err');
+      const ratingErr  = document.getElementById('exp-rating-err');
+      const textErr    = document.getElementById('exp-text-err');
+
+      nameErr.classList.toggle('hidden',    name.length > 0);
+      vehicleErr.classList.toggle('hidden', vehicle.length > 0);
+      ratingErr.classList.toggle('hidden',  selectedRating > 0);
+      textErr.classList.toggle('hidden',    text.length >= 20);
+
+      if (!name)              valid = false;
+      if (!vehicle)           valid = false;
+      if (!selectedRating)    valid = false;
+      if (text.length < 20)   valid = false;
+
+      if (!valid) return;
+
+      allReviews.unshift({ name, vehicle, rating: selectedRating, text });
+      renderReviews();
+
+      document.getElementById('experience-form').classList.add('hidden');
+      document.getElementById('exp-success').classList.remove('hidden');
+
+      // Reset form state for next use
+      document.getElementById('exp-name').value    = '';
+      document.getElementById('exp-vehicle').value = '';
+      document.getElementById('exp-text').value    = '';
+      selectedRating = 0;
+      unhoverRating();
+    }
+
+    /* ── Init ─────────────────────────────────────────────────── */
+    renderReviews();
+    console.log('%c✅ PDI Parga Diesel Injection website ready!', 'color:#f97316; font-size:18px; font-weight:bold');
+  </script>
+</body>
+</html>
