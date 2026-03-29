@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parga Diesel Injection – Truck Model Selector</title>
+  <style>
+    /* ── Reset & Base ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0d0d0d;
+      --surface:   #1a1a1a;
+      --card:      #242424;
+      --border:    #333;
+      --accent:    #e87c1e;
+      --accent2:   #ffa040;
+      --text:      #f0f0f0;
+      --muted:     #888;
+      --radius:    8px;
+      --shadow:    0 4px 24px rgba(0,0,0,.6);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, #111 0%, #1e1e1e 100%);
+      border-bottom: 3px solid var(--accent);
+      padding: 1.4rem 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .logo-icon {
+      font-size: 2.4rem;
+      line-height: 1;
+    }
+
+    .header-text h1 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .header-text p {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-top: .15rem;
+    }
+
+    /* ── Main layout ─────────────────────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 0 1.2rem 3rem;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent2);
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      margin-bottom: 1.1rem;
+      padding-bottom: .35rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Selector card ───────────────────────────────────────────── */
+    .selector-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    .selector-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: .45rem;
+    }
+
+    label {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    select {
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .65rem .9rem;
+      font-size: .95rem;
+      cursor: pointer;
+      transition: border-color .2s;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23e87c1e' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right .85rem center;
+      padding-right: 2.2rem;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(232,124,30,.2);
+    }
+
+    select:disabled {
+      opacity: .45;
+      cursor: not-allowed;
+    }
+
+    /* ── Truck details card ──────────────────────────────────────── */
+    #details-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow);
+      display: none;
+    }
+
+    #details-panel.visible { display: block; }
+
+    .detail-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .truck-icon {
+      font-size: 3.2rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .detail-title h2 {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .detail-title .sub {
+      font-size: .9rem;
+      color: var(--muted);
+      margin-top: .2rem;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+    }
+
+    .spec-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .9rem 1rem;
+    }
+
+    .spec-item .spec-label {
+      font-size: .72rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: .3rem;
+    }
+
+    .spec-item .spec-value {
+      font-size: .98rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .engine-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #000;
+      font-size: .78rem;
+      font-weight: 700;
+      padding: .2rem .65rem;
+      border-radius: 20px;
+      margin-top: .45rem;
+    }
+
+    /* ── Manufacturer overview ───────────────────────────────────── */
+    .makers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .maker-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.3rem;
+      cursor: pointer;
+      transition: border-color .2s, transform .15s;
+    }
+
+    .maker-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .maker-card.active {
+      border-color: var(--accent);
+      background: #1f1710;
+    }
+
+    .maker-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent2);
+    }
+
+    .maker-meta {
+      font-size: .8rem;
+      color: var(--muted);
+      margin-top: .25rem;
+    }
+
+    .maker-count {
+      font-size: .78rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-top: .4rem;
+    }
+
+    /* ── Model list table ────────────────────────────────────────── */
+    .model-table-wrap {
+      overflow-x: auto;
+      margin-top: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .88rem;
+    }
+
+    thead tr {
+      background: #1f1710;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    th {
+      text-align: left;
+      padding: .75rem 1rem;
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--accent2);
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--border);
+      transition: background .15s;
+    }
+
+    tbody tr:hover { background: #252525; }
+
+    td {
+      padding: .65rem 1rem;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    td:first-child { color: var(--accent2); font-weight: 600; }
+
+    .tag {
+      display: inline-block;
+      background: #2a2010;
+      border: 1px solid #5a3a10;
+      color: var(--accent2);
+      font-size: .73rem;
+      padding: .1rem .45rem;
+      border-radius: 4px;
+      margin: .1rem;
+    }
+
+    /* ── Responsive ──────────────────────────────────────────────── */
+    @media (max-width: 600px) {
+      header { flex-direction: column; text-align: center; }
+      .detail-header { flex-direction: column; align-items: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo-icon">🔧</div>
+  <div class="header-text">
+    <h1>Parga Diesel Injection (PDI)</h1>
+    <p>Diesel Additive Injection — Modern Diesel Engine Solutions</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── Truck Selector ──────────────────────────────── -->
+  <section class="selector-card">
+    <p class="section-title">🚛 Truck Model Selector</p>
+    <div class="selector-grid">
+
+      <div class="field-group">
+        <label for="sel-make">Manufacturer</label>
+        <select id="sel-make">
+          <option value="">— Select Manufacturer —</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="sel-year">Year</label>
+        <select id="sel-year" disabled>
+          <option value="">— Select Year —</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="sel-model">Model</label>
+        <select id="sel-model" disabled>
+          <option value="">— Select Model —</option>
+        </select>
+      </div>
+
+      <div class="field-group">
+        <label for="sel-engine">Engine</label>
+        <select id="sel-engine" disabled>
+          <option value="">— Select Engine —</option>
+        </select>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── Details Panel ──────────────────────────────── -->
+  <div id="details-panel">
+    <p class="section-title">📋 Truck Specifications</p>
+    <div class="detail-header">
+      <div class="truck-icon" id="detail-icon">🚛</div>
+      <div class="detail-title">
+        <h2 id="detail-name">—</h2>
+        <div class="sub" id="detail-category">—</div>
+      </div>
+    </div>
+    <div class="spec-grid" id="spec-grid"></div>
+  </div>
+
+  <!-- ── Manufacturer Overview ──────────────────────── -->
+  <section style="margin-top:2.5rem;">
+    <p class="section-title">🏭 Diesel Truck Manufacturers</p>
+    <div class="makers-grid" id="makers-grid"></div>
+  </section>
+
+  <!-- ── Full Model Reference Table ─────────────────── -->
+  <section class="model-table-wrap" style="margin-top:2.5rem;">
+    <p class="section-title">📊 Complete Diesel Truck Reference</p>
+    <table id="model-table">
+      <thead>
+        <tr>
+          <th>Manufacturer</th>
+          <th>Model</th>
+          <th>Year Range</th>
+          <th>Class</th>
+          <th>Engine(s)</th>
+          <th>Displacement</th>
+          <th>HP Range</th>
+        </tr>
+      </thead>
+      <tbody id="model-tbody"></tbody>
+    </table>
+  </section>
+
+</main>
+
+<script>
+/* =========================================================
+   DIESEL TRUCK DATABASE
+   Each entry: { make, model, yearStart, yearEnd, class,
+                 engines: [{ name, displacement, hpRange, torque, type }],
+                 category, icon }
+   ========================================================= */
+const TRUCKS = [
+
+  /* ── DODGE / RAM ─────────────────────────────────────── */
+  { make:"Ram", model:"Ram 2500 Heavy Duty", yearStart:2003, yearEnd:2024,
+    class:"Light-Heavy Duty (Class 2.5)", category:"Light-Duty Diesel",
+    engines:[
+      { name:"Cummins 6.7L Turbo Diesel", displacement:"6.7L (408 ci)", hpRange:"370–420 hp", torque:"850–1,075 lb-ft", type:"Inline-6 Turbodiesel" }
+    ]},
+
+  { make:"Ram", model:"Ram 3500 Heavy Duty", yearStart:2003, yearEnd:2024,
+    class:"Class 3", category:"Light-Duty Diesel",
+    engines:[
+      { name:"Cummins 6.7L Turbo Diesel", displacement:"6.7L (408 ci)", hpRange:"370–420 hp", torque:"850–1,075 lb-ft", type:"Inline-6 Turbodiesel" }
+    ]},
+
+  { make:"Ram", model:"Ram 4500 Chassis Cab", yearStart:2008, yearEnd:2024,
+    class:"Class 4", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Cummins 6.7L Turbo Diesel", displacement:"6.7L (408 ci)", hpRange:"370 hp", torque:"800 lb-ft", type:"Inline-6 Turbodiesel" }
+    ]},
+
+  { make:"Ram", model:"Ram 5500 Chassis Cab", yearStart:2008, yearEnd:2024,
+    class:"Class 5", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Cummins 6.7L Turbo Diesel", displacement:"6.7L (408 ci)", hpRange:"370 hp", torque:"800 lb-ft", type:"Inline-6 Turbodiesel" }
+    ]},
+
+  { make:"Dodge", model:"Ram 2500 (3rd Gen)", yearStart:1994, yearEnd:2002,
+    class:"Class 2.5", category:"Light-Duty Diesel",
+    engines:[
+      { name:"Cummins 5.9L 12-Valve Turbo Diesel", displacement:"5.9L (359 ci)", hpRange:"175–215 hp", torque:"420–440 lb-ft", type:"Inline-6 Turbodiesel" },
+      { name:"Cummins 5.9L 24-Valve Turbo Diesel", displacement:"5.9L (359 ci)", hpRange:"235–305 hp", torque:"460–610 lb-ft", type:"Inline-6 Turbodiesel" }
+    ]},
+
+  { make:"Dodge", model:"Ram 3500 (3rd Gen)", yearStart:1994, yearEnd:2002,
+    class:"Class 3", category:"Light-Duty Diesel",
+    engines:[
+      { name:"Cummins 5.9L 12-Valve Turbo Diesel", displacement:"5.9L (359 ci)", hpRange:"175–215 hp", torque:"420–440 lb-ft", type:"Inline-6 Turbodiesel" },
+      { name:"Cummins 5.9L 24-Valve Turbo Diesel", displacement:"5.9L (359 ci)", hpRange:"235–305 hp", torque:"460–610 lb-ft", type:"Inline-6 Turbodiesel" }
+    ]},
+
+  /* ── FORD ─────────────────────────────────────────────── */
+  { make:"Ford", model:"F-250 Super Duty", yearStart:1999, yearEnd:2024,
+    class:"Class 2.5", category:"Light-Duty Diesel",
+    engines:[
+      { name:"Power Stroke 7.3L Turbo Diesel", displacement:"7.3L (444 ci)", hpRange:"235–275 hp", torque:"500–525 lb-ft", type:"V8 Turbodiesel" },
+      { name:"Power Stroke 6.0L Turbo Diesel", displacement:"6.0L (365 ci)", hpRange:"325 hp", torque:"570 lb-ft", type:"V8 Turbodiesel" },
+      { name:"Power Stroke 6.4L Turbo Diesel", displacement:"6.4L (390 ci)", hpRange:"350 hp", torque:"650 lb-ft", type:"V8 Twin-Turbo Diesel" },
+      { name:"Power Stroke 6.7L Turbo Diesel", displacement:"6.7L (406 ci)", hpRange:"400–500 hp", torque:"800–1,200 lb-ft", type:"V8 Turbodiesel" }
+    ]},
+
+  { make:"Ford", model:"F-350 Super Duty", yearStart:1999, yearEnd:2024,
+    class:"Class 3", category:"Light-Duty Diesel",
+    engines:[
+      { name:"Power Stroke 7.3L Turbo Diesel", displacement:"7.3L (444 ci)", hpRange:"235–275 hp", torque:"500–525 lb-ft", type:"V8 Turbodiesel" },
+      { name:"Power Stroke 6.0L Turbo Diesel", displacement:"6.0L (365 ci)", hpRange:"325 hp", torque:"570 lb-ft", type:"V8 Turbodiesel" },
+      { name:"Power Stroke 6.4L Turbo Diesel", displacement:"6.4L (390 ci)", hpRange:"350 hp", torque:"650 lb-ft", type:"V8 Twin-Turbo Diesel" },
+      { name:"Power Stroke 6.7L Turbo Diesel", displacement:"6.7L (406 ci)", hpRange:"400–500 hp", torque:"800–1,200 lb-ft", type:"V8 Turbodiesel" }
+    ]},
+
+  { make:"Ford", model:"F-450 Super Duty", yearStart:1999, yearEnd:2024,
+    class:"Class 4", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Power Stroke 6.7L Turbo Diesel", displacement:"6.7L (406 ci)", hpRange:"400–500 hp", torque:"800–1,200 lb-ft", type:"V8 Turbodiesel" }
+    ]},
+
+  { make:"Ford", model:"F-550 Super Duty", yearStart:1999, yearEnd:2024,
+    class:"Class 5", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Power Stroke 6.7L Turbo Diesel", displacement:"6.7L (406 ci)", hpRange:"400–500 hp", torque:"800–1,200 lb-ft", type:"V8 Turbodiesel" }
+    ]},
+
+  { make:"Ford", model:"F-650 Super Duty", yearStart:2000, yearEnd:2024,
+    class:"Class 6", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Cummins 6.7L Turbo Diesel", displacement:"6.7L (408 ci)", hpRange:"300 hp", torque:"660 lb-ft", type:"Inline-6 Turbodiesel" }
+    ]},
+
+  { make:"Ford", model:"F-750 Super Duty", yearStart:2000, yearEnd:2024,
+    class:"Class 7", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Cummins 6.7L Turbo Diesel", displacement:"6.7L (408 ci)", hpRange:"300 hp", torque:"660 lb-ft", type:"Inline-6 Turbodiesel" }
+    ]},
+
+  /* ── GMC ──────────────────────────────────────────────── */
+  { make:"GMC", model:"Sierra 2500HD", yearStart:2001, yearEnd:2024,
+    class:"Class 2.5", category:"Light-Duty Diesel",
+    engines:[
+      { name:"Duramax 6.6L LB7 Turbo Diesel", displacement:"6.6L (403 ci)", hpRange:"300 hp", torque:"520 lb-ft", type:"V8 Turbodiesel" },
+      { name:"Duramax 6.6L LLY/LBZ/LMM Turbo Diesel", displacement:"6.6L (403 ci)", hpRange:"310–365 hp", torque:"520–660 lb-ft", type:"V8 Turbodiesel" },
+      { name:"Duramax 6.6L LML/L5P Turbo Diesel", displacement:"6.6L (403 ci)", hpRange:"397–445 hp", torque:"765–910 lb-ft", type:"V8 Turbodiesel" }
+    ]},
+
+  { make:"GMC", model:"Sierra 3500HD", yearStart:2001, yearEnd:2024,
+    class:"Class 3", category:"Light-Duty Diesel",
+    engines:[
+      { name:"Duramax 6.6L Turbo Diesel", displacement:"6.6L (403 ci)", hpRange:"300–445 hp", torque:"520–910 lb-ft", type:"V8 Turbodiesel" }
+    ]},
+
+  { make:"GMC", model:"TopKick C4500", yearStart:1988, yearEnd:2009,
+    class:"Class 4–5", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Duramax 6.6L Turbo Diesel", displacement:"6.6L (403 ci)", hpRange:"325 hp", torque:"620 lb-ft", type:"V8 Turbodiesel" },
+      { name:"Caterpillar 3126 Diesel", displacement:"7.2L (439 ci)", hpRange:"175–300 hp", torque:"520–860 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  /* ── CHEVROLET ────────────────────────────────────────── */
+  { make:"Chevrolet", model:"Silverado 2500HD", yearStart:2001, yearEnd:2024,
+    class:"Class 2.5", category:"Light-Duty Diesel",
+    engines:[
+      { name:"Duramax 6.6L LB7 Turbo Diesel", displacement:"6.6L (403 ci)", hpRange:"300 hp", torque:"520 lb-ft", type:"V8 Turbodiesel" },
+      { name:"Duramax 6.6L LLY/LBZ/LMM Turbo Diesel", displacement:"6.6L (403 ci)", hpRange:"310–365 hp", torque:"520–660 lb-ft", type:"V8 Turbodiesel" },
+      { name:"Duramax 6.6L LML/L5P Turbo Diesel", displacement:"6.6L (403 ci)", hpRange:"397–445 hp", torque:"765–910 lb-ft", type:"V8 Turbodiesel" }
+    ]},
+
+  { make:"Chevrolet", model:"Silverado 3500HD", yearStart:2001, yearEnd:2024,
+    class:"Class 3", category:"Light-Duty Diesel",
+    engines:[
+      { name:"Duramax 6.6L Turbo Diesel", displacement:"6.6L (403 ci)", hpRange:"300–445 hp", torque:"520–910 lb-ft", type:"V8 Turbodiesel" }
+    ]},
+
+  { make:"Chevrolet", model:"Kodiak C4500", yearStart:1988, yearEnd:2009,
+    class:"Class 4–5", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Duramax 6.6L Turbo Diesel", displacement:"6.6L (403 ci)", hpRange:"325 hp", torque:"620 lb-ft", type:"V8 Turbodiesel" },
+      { name:"Caterpillar 3126 Diesel", displacement:"7.2L (439 ci)", hpRange:"175–300 hp", torque:"520–860 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  /* ── PETERBILT ────────────────────────────────────────── */
+  { make:"Peterbilt", model:"Model 389", yearStart:2007, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"PACCAR MX-13 Diesel", displacement:"12.9L (787 ci)", hpRange:"405–510 hp", torque:"1,450–1,850 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Detroit DD15 Diesel", displacement:"14.8L (903 ci)", hpRange:"455–560 hp", torque:"1,650–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Peterbilt", model:"Model 579", yearStart:2012, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"PACCAR MX-13 Diesel", displacement:"12.9L (787 ci)", hpRange:"405–510 hp", torque:"1,450–1,850 lb-ft", type:"Inline-6 Diesel" },
+      { name:"PACCAR MX-11 Diesel", displacement:"10.8L (659 ci)", hpRange:"350–430 hp", torque:"1,250–1,650 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Peterbilt", model:"Model 567", yearStart:2013, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Vocational Truck",
+    engines:[
+      { name:"PACCAR MX-13 Diesel", displacement:"12.9L (787 ci)", hpRange:"405–510 hp", torque:"1,450–1,850 lb-ft", type:"Inline-6 Diesel" },
+      { name:"PACCAR MX-11 Diesel", displacement:"10.8L (659 ci)", hpRange:"350–430 hp", torque:"1,250–1,650 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Peterbilt", model:"Model 348", yearStart:2010, yearEnd:2024,
+    class:"Class 6–8", category:"Medium/Heavy-Duty Vocational",
+    engines:[
+      { name:"PACCAR PX-7 Diesel", displacement:"6.7L (409 ci)", hpRange:"230–300 hp", torque:"660–860 lb-ft", type:"Inline-6 Diesel" },
+      { name:"PACCAR MX-11 Diesel", displacement:"10.8L (659 ci)", hpRange:"350–430 hp", torque:"1,250–1,650 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  /* ── FREIGHTLINER ────────────────────────────────────── */
+  { make:"Freightliner", model:"Cascadia", yearStart:2008, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"Detroit DD13 Diesel", displacement:"12.8L (781 ci)", hpRange:"350–470 hp", torque:"1,250–1,700 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Detroit DD15 Diesel", displacement:"14.8L (903 ci)", hpRange:"455–560 hp", torque:"1,650–2,050 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Freightliner", model:"Classic XL", yearStart:1992, yearEnd:2010,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"Detroit Series 60 Diesel", displacement:"12.7L (775 ci)", hpRange:"350–515 hp", torque:"1,250–1,750 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins N14 Diesel", displacement:"14.0L (855 ci)", hpRange:"310–525 hp", torque:"1,250–1,650 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Caterpillar 3406E Diesel", displacement:"14.6L (893 ci)", hpRange:"355–550 hp", torque:"1,350–1,850 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Freightliner", model:"FLD 120", yearStart:1985, yearEnd:2007,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"Detroit Series 60 Diesel", displacement:"12.7L (775 ci)", hpRange:"350–515 hp", torque:"1,250–1,750 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins N14 Diesel", displacement:"14.0L (855 ci)", hpRange:"310–525 hp", torque:"1,250–1,650 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Freightliner", model:"M2 106", yearStart:2003, yearEnd:2024,
+    class:"Class 6–7", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Detroit DD5 Diesel", displacement:"5.1L (311 ci)", hpRange:"170–210 hp", torque:"500–590 lb-ft", type:"Inline-4 Diesel" },
+      { name:"Detroit DD8 Diesel", displacement:"7.7L (470 ci)", hpRange:"260–330 hp", torque:"750–1,050 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins B6.7 Diesel", displacement:"6.7L (409 ci)", hpRange:"200–370 hp", torque:"520–800 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  /* ── KENWORTH ─────────────────────────────────────────── */
+  { make:"Kenworth", model:"T680", yearStart:2012, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"PACCAR MX-13 Diesel", displacement:"12.9L (787 ci)", hpRange:"405–510 hp", torque:"1,450–1,850 lb-ft", type:"Inline-6 Diesel" },
+      { name:"PACCAR MX-11 Diesel", displacement:"10.8L (659 ci)", hpRange:"350–430 hp", torque:"1,250–1,650 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Kenworth", model:"W900", yearStart:1961, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"PACCAR MX-13 Diesel", displacement:"12.9L (787 ci)", hpRange:"405–510 hp", torque:"1,450–1,850 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Kenworth", model:"T800", yearStart:1986, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Vocational Truck",
+    engines:[
+      { name:"PACCAR MX-13 Diesel", displacement:"12.9L (787 ci)", hpRange:"405–510 hp", torque:"1,450–1,850 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Caterpillar C15 Diesel", displacement:"15.8L (964 ci)", hpRange:"435–625 hp", torque:"1,550–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Kenworth", model:"T660", yearStart:2008, yearEnd:2018,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"PACCAR MX-13 Diesel", displacement:"12.9L (787 ci)", hpRange:"405–510 hp", torque:"1,450–1,850 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins ISX15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–600 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  /* ── MACK ─────────────────────────────────────────────── */
+  { make:"Mack", model:"Anthem", yearStart:2018, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"Mack MP8 Diesel", displacement:"12.8L (781 ci)", hpRange:"415–505 hp", torque:"1,460–1,860 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Mack MP7 Diesel", displacement:"10.8L (659 ci)", hpRange:"325–425 hp", torque:"1,260–1,560 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Mack", model:"Pinnacle", yearStart:2006, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"Mack MP8 Diesel", displacement:"12.8L (781 ci)", hpRange:"415–505 hp", torque:"1,460–1,860 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Mack MP7 Diesel", displacement:"10.8L (659 ci)", hpRange:"325–425 hp", torque:"1,260–1,560 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Mack", model:"Granite", yearStart:2002, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Vocational Truck",
+    engines:[
+      { name:"Mack MP8 Diesel", displacement:"12.8L (781 ci)", hpRange:"415–505 hp", torque:"1,460–1,860 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Mack MP7 Diesel", displacement:"10.8L (659 ci)", hpRange:"325–425 hp", torque:"1,260–1,560 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Mack", model:"LR (Refuse)", yearStart:2015, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Vocational Truck",
+    engines:[
+      { name:"Mack MP7 Diesel", displacement:"10.8L (659 ci)", hpRange:"325–425 hp", torque:"1,260–1,560 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  /* ── INTERNATIONAL (NAVISTAR) ─────────────────────────── */
+  { make:"International", model:"LT Series", yearStart:2017, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"International A26 Diesel", displacement:"12.4L (757 ci)", hpRange:"450–475 hp", torque:"1,700–1,850 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"International", model:"ProStar", yearStart:2006, yearEnd:2017,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"Cummins ISX15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–600 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Maxxforce 13 Diesel", displacement:"12.4L (757 ci)", hpRange:"410–475 hp", torque:"1,450–1,700 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"International", model:"MV Series", yearStart:2018, yearEnd:2024,
+    class:"Class 6–7", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"International A26 Diesel (MV)", displacement:"6.7L (409 ci)", hpRange:"200–300 hp", torque:"520–800 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins B6.7 Diesel", displacement:"6.7L (409 ci)", hpRange:"200–370 hp", torque:"520–800 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"International", model:"HV Series", yearStart:2018, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Vocational Truck",
+    engines:[
+      { name:"International A26 Diesel", displacement:"12.4L (757 ci)", hpRange:"450–475 hp", torque:"1,700–1,850 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  /* ── VOLVO ────────────────────────────────────────────── */
+  { make:"Volvo", model:"VNL Series", yearStart:1996, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"Volvo D13TC Diesel", displacement:"12.8L (781 ci)", hpRange:"425–500 hp", torque:"1,650–1,850 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Volvo D11 Diesel", displacement:"10.8L (659 ci)", hpRange:"330–425 hp", torque:"1,250–1,550 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Volvo", model:"VNR Series", yearStart:2018, yearEnd:2024,
+    class:"Class 6–8", category:"Medium/Heavy-Duty Diesel",
+    engines:[
+      { name:"Volvo D11 Diesel", displacement:"10.8L (659 ci)", hpRange:"330–425 hp", torque:"1,250–1,550 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins B6.7 Diesel", displacement:"6.7L (409 ci)", hpRange:"200–370 hp", torque:"520–800 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  /* ── WESTERN STAR ─────────────────────────────────────── */
+  { make:"Western Star", model:"4900", yearStart:1997, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"Detroit DD15 Diesel", displacement:"14.8L (903 ci)", hpRange:"455–560 hp", torque:"1,650–2,050 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X15 Diesel", displacement:"15.0L (915 ci)", hpRange:"400–605 hp", torque:"1,450–2,050 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Caterpillar C15 Diesel", displacement:"15.8L (964 ci)", hpRange:"435–625 hp", torque:"1,550–2,050 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  { make:"Western Star", model:"5700XE", yearStart:2014, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Semi Truck",
+    engines:[
+      { name:"Detroit DD15 Diesel", displacement:"14.8L (903 ci)", hpRange:"455–560 hp", torque:"1,650–2,050 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Detroit DD13 Diesel", displacement:"12.8L (781 ci)", hpRange:"350–470 hp", torque:"1,250–1,700 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  /* ── ISUZU ────────────────────────────────────────────── */
+  { make:"Isuzu", model:"NPR Diesel", yearStart:1995, yearEnd:2024,
+    class:"Class 3–4", category:"Light/Medium-Duty Diesel",
+    engines:[
+      { name:"Isuzu 4HK1-TC Diesel", displacement:"5.2L (317 ci)", hpRange:"175–215 hp", torque:"452–493 lb-ft", type:"Inline-4 Turbodiesel" }
+    ]},
+
+  { make:"Isuzu", model:"NRR Diesel", yearStart:1995, yearEnd:2024,
+    class:"Class 5–6", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Isuzu 4HK1-TC Diesel", displacement:"5.2L (317 ci)", hpRange:"215 hp", torque:"452 lb-ft", type:"Inline-4 Turbodiesel" }
+    ]},
+
+  { make:"Isuzu", model:"FTR Medium-Duty", yearStart:2018, yearEnd:2024,
+    class:"Class 6", category:"Medium-Duty Diesel",
+    engines:[
+      { name:"Isuzu 6HK1-TC Diesel", displacement:"7.8L (476 ci)", hpRange:"240 hp", torque:"620 lb-ft", type:"Inline-6 Turbodiesel" }
+    ]},
+
+  /* ── HINO ─────────────────────────────────────────────── */
+  { make:"Hino", model:"155/195 Series", yearStart:2013, yearEnd:2024,
+    class:"Class 4–5", category:"Light/Medium-Duty Diesel",
+    engines:[
+      { name:"Hino J05E-TV Diesel", displacement:"5.1L (311 ci)", hpRange:"210 hp", torque:"442 lb-ft", type:"Inline-4 Turbodiesel" }
+    ]},
+
+  { make:"Hino", model:"338/268 Series", yearStart:2013, yearEnd:2024,
+    class:"Class 6–8", category:"Medium/Heavy-Duty Diesel",
+    engines:[
+      { name:"Hino J08E-TV Diesel", displacement:"7.7L (470 ci)", hpRange:"260–300 hp", torque:"664–738 lb-ft", type:"Inline-6 Turbodiesel" }
+    ]},
+
+  /* ── STERLING (FORD) ──────────────────────────────────── */
+  { make:"Sterling", model:"Acterra / L-Line", yearStart:1998, yearEnd:2009,
+    class:"Class 6–8", category:"Medium/Heavy-Duty Diesel",
+    engines:[
+      { name:"Caterpillar C7 Diesel", displacement:"7.2L (440 ci)", hpRange:"190–300 hp", torque:"520–860 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Mercedes-Benz MBE 926 Diesel", displacement:"6.4L (391 ci)", hpRange:"210–260 hp", torque:"575–760 lb-ft", type:"Inline-6 Diesel" }
+    ]},
+
+  /* ── AUTOCAR ──────────────────────────────────────────── */
+  { make:"Autocar", model:"ACMD / ACX / E3", yearStart:2010, yearEnd:2024,
+    class:"Class 8", category:"Heavy-Duty Vocational Truck",
+    engines:[
+      { name:"Detroit DD13 Diesel", displacement:"12.8L (781 ci)", hpRange:"350–470 hp", torque:"1,250–1,700 lb-ft", type:"Inline-6 Diesel" },
+      { name:"Cummins X12 Diesel", displacement:"11.9L (727 ci)", hpRange:"370–500 hp", torque:"1,300–1,700 lb-ft", type:"Inline-6 Diesel" }
+    ]}
+
+];
+
+/* =========================================================
+   MANUFACTURER METADATA
+   ========================================================= */
+const MAKER_META = {
+  "Ram":          { hq:"Auburn Hills, MI (USA)", founded:2009, specialization:"Light/Medium-Duty Pickups & Chassis Cabs" },
+  "Dodge":        { hq:"Auburn Hills, MI (USA)", founded:1900, specialization:"Light-Duty Diesel Pickups (historical)" },
+  "Ford":         { hq:"Dearborn, MI (USA)",     founded:1903, specialization:"Light, Medium & Heavy-Duty Trucks" },
+  "GMC":          { hq:"Detroit, MI (USA)",       founded:1912, specialization:"Light & Medium-Duty Trucks" },
+  "Chevrolet":    { hq:"Detroit, MI (USA)",       founded:1911, specialization:"Light & Medium-Duty Trucks" },
+  "Peterbilt":    { hq:"Denton, TX (USA)",        founded:1939, specialization:"Heavy-Duty Semi & Vocational Trucks" },
+  "Freightliner": { hq:"Portland, OR (USA)",      founded:1942, specialization:"Medium & Heavy-Duty Trucks" },
+  "Kenworth":     { hq:"Kirkland, WA (USA)",      founded:1923, specialization:"Heavy-Duty Semi & Vocational Trucks" },
+  "Mack":         { hq:"Greensboro, NC (USA)",    founded:1900, specialization:"Heavy-Duty Semi & Vocational Trucks" },
+  "International":{ hq:"Lisle, IL (USA)",         founded:1902, specialization:"Medium & Heavy-Duty Trucks" },
+  "Volvo":        { hq:"Gothenburg, Sweden",      founded:1927, specialization:"Heavy-Duty Semi Trucks" },
+  "Western Star": { hq:"Portland, OR (USA)",      founded:1967, specialization:"Heavy-Duty Semi & Vocational Trucks" },
+  "Isuzu":        { hq:"Yokohama, Japan",         founded:1916, specialization:"Light & Medium-Duty Diesel Trucks" },
+  "Hino":         { hq:"Tokyo, Japan",            founded:1942, specialization:"Light, Medium & Heavy-Duty Diesel Trucks" },
+  "Sterling":     { hq:"Wayne, MI (USA)",         founded:1997, specialization:"Medium & Heavy-Duty Trucks (discontinued)" },
+  "Autocar":      { hq:"Hagerstown, IN (USA)",    founded:1897, specialization:"Heavy-Duty Vocational Trucks" }
+};
+
+const ICONS = {
+  "Ram":"🐏", "Dodge":"🔶", "Ford":"🔵", "GMC":"🟠",
+  "Chevrolet":"🟡", "Peterbilt":"🔴", "Freightliner":"🚛",
+  "Kenworth":"🟣", "Mack":"🐶", "International":"🔷",
+  "Volvo":"⚪", "Western Star":"⭐", "Isuzu":"🟩",
+  "Hino":"🔺", "Sterling":"🔘", "Autocar":"🔩"
+};
+
+/* =========================================================
+   BUILD MAKER CARDS
+   ========================================================= */
+function buildMakerCards() {
+  const grid = document.getElementById('makers-grid');
+  const makes = [...new Set(TRUCKS.map(t => t.make))];
+
+  makes.forEach(make => {
+    const count = TRUCKS.filter(t => t.make === make).length;
+    const meta  = MAKER_META[make] || {};
+    const icon  = ICONS[make] || '🚛';
+    const card  = document.createElement('div');
+    card.className = 'maker-card';
+    card.innerHTML = `
+      <div class="maker-name">${icon} ${make}</div>
+      <div class="maker-meta">${meta.hq || ''} · Est. ${meta.founded || '?'}</div>
+      <div class="maker-meta" style="margin-top:.15rem">${meta.specialization || ''}</div>
+      <div class="maker-count">${count} model${count !== 1 ? 's' : ''} in database</div>`;
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.maker-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const selMake = document.getElementById('sel-make');
+      selMake.value = make;
+      selMake.dispatchEvent(new Event('change'));
+    });
+    grid.appendChild(card);
+  });
+}
+
+/* =========================================================
+   BUILD REFERENCE TABLE
+   ========================================================= */
+function buildTable() {
+  const tbody = document.getElementById('model-tbody');
+  TRUCKS.forEach(truck => {
+    const engNames = truck.engines.map(e => `<span class="tag">${e.name.split(' ').slice(0,3).join(' ')}</span>`).join('');
+    const disps    = [...new Set(truck.engines.map(e => e.displacement))].join(', ');
+    const hpRanges = [...new Set(truck.engines.map(e => e.hpRange))].join(' / ');
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${truck.make}</td>
+      <td>${truck.model}</td>
+      <td>${truck.yearStart}–${truck.yearEnd}</td>
+      <td>${truck.class}</td>
+      <td>${engNames}</td>
+      <td>${disps}</td>
+      <td>${hpRanges}</td>`;
+    tbody.appendChild(row);
+  });
+}
+
+/* =========================================================
+   DROPDOWN LOGIC
+   ========================================================= */
+const selMake   = document.getElementById('sel-make');
+const selYear   = document.getElementById('sel-year');
+const selModel  = document.getElementById('sel-model');
+const selEngine = document.getElementById('sel-engine');
+
+// Populate make dropdown
+const makes = [...new Set(TRUCKS.map(t => t.make))].sort();
+makes.forEach(m => {
+  const opt = document.createElement('option');
+  opt.value = m; opt.textContent = m;
+  selMake.appendChild(opt);
+});
+
+function resetSelect(sel, placeholder) {
+  sel.innerHTML = `<option value="">${placeholder}</option>`;
+  sel.disabled = true;
+}
+
+selMake.addEventListener('change', () => {
+  const make = selMake.value;
+  resetSelect(selYear,   '— Select Year —');
+  resetSelect(selModel,  '— Select Model —');
+  resetSelect(selEngine, '— Select Engine —');
+  hideDetails();
+  if (!make) return;
+
+  const trucks = TRUCKS.filter(t => t.make === make);
+  const years  = new Set();
+  trucks.forEach(t => {
+    for (let y = t.yearStart; y <= t.yearEnd; y++) years.add(y);
+  });
+  [...years].sort((a,b) => b - a).forEach(y => {
+    const opt = document.createElement('option');
+    opt.value = y; opt.textContent = y;
+    selYear.appendChild(opt);
+  });
+  selYear.disabled = false;
+});
+
+selYear.addEventListener('change', () => {
+  const make = selMake.value;
+  const year = parseInt(selYear.value);
+  resetSelect(selModel,  '— Select Model —');
+  resetSelect(selEngine, '— Select Engine —');
+  hideDetails();
+  if (!year) return;
+
+  const trucks = TRUCKS.filter(t => t.make === make && t.yearStart <= year && t.yearEnd >= year);
+  trucks.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.model; opt.textContent = t.model;
+    selModel.appendChild(opt);
+  });
+  selModel.disabled = trucks.length === 0;
+});
+
+selModel.addEventListener('change', () => {
+  const make  = selMake.value;
+  const year  = parseInt(selYear.value);
+  const model = selModel.value;
+  resetSelect(selEngine, '— Select Engine —');
+  hideDetails();
+  if (!model) return;
+
+  const truck = TRUCKS.find(t => t.make === make && t.model === model && t.yearStart <= year && t.yearEnd >= year);
+  if (!truck) return;
+
+  truck.engines.forEach(e => {
+    const opt = document.createElement('option');
+    opt.value = e.name; opt.textContent = e.name;
+    selEngine.appendChild(opt);
+  });
+  selEngine.disabled = truck.engines.length === 0;
+  if (truck.engines.length === 1) {
+    selEngine.value = truck.engines[0].name;
+    showDetails(truck, truck.engines[0]);
+  }
+});
+
+selEngine.addEventListener('change', () => {
+  const make   = selMake.value;
+  const year   = parseInt(selYear.value);
+  const model  = selModel.value;
+  const engine = selEngine.value;
+  if (!engine) { hideDetails(); return; }
+
+  const truck  = TRUCKS.find(t => t.make === make && t.model === model && t.yearStart <= year && t.yearEnd >= year);
+  const eng    = truck && truck.engines.find(e => e.name === engine);
+  if (truck && eng) showDetails(truck, eng);
+});
+
+/* =========================================================
+   DETAILS PANEL
+   ========================================================= */
+function showDetails(truck, engine) {
+  const panel = document.getElementById('details-panel');
+  document.getElementById('detail-icon').textContent  = ICONS[truck.make] || '🚛';
+  document.getElementById('detail-name').textContent  = `${selYear.value} ${truck.make} ${truck.model}`;
+  document.getElementById('detail-category').textContent = `${truck.category} · ${truck.class}`;
+
+  const specs = [
+    { label: "Manufacturer",    value: truck.make },
+    { label: "Model",           value: truck.model },
+    { label: "Year",            value: selYear.value },
+    { label: "Class",           value: truck.class },
+    { label: "Engine",          value: engine.name, badge: true },
+    { label: "Engine Type",     value: engine.type },
+    { label: "Displacement",    value: engine.displacement },
+    { label: "Horsepower",      value: engine.hpRange },
+    { label: "Torque",          value: engine.torque },
+    { label: "Category",        value: truck.category },
+  ];
+
+  const grid = document.getElementById('spec-grid');
+  grid.innerHTML = specs.map(s => `
+    <div class="spec-item">
+      <div class="spec-label">${s.label}</div>
+      <div class="spec-value">${s.value}${s.badge ? '<br><span class="engine-badge">DIESEL</span>' : ''}</div>
+    </div>`).join('');
+
+  panel.classList.add('visible');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function hideDetails() {
+  document.getElementById('details-panel').classList.remove('visible');
+}
+
+/* ── Init ──────────────────────────────────────────────── */
+buildMakerCards();
+buildTable();
+</script>
+</body>
+</html>
