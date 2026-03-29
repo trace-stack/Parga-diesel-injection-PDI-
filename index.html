@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parga Diesel Injection (PDI)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <span class="brand-icon">⚙️</span>
+        <div>
+          <h1>Parga Diesel Injection</h1>
+          <p class="tagline">Diesel additive injection for the modern diesel engine</p>
+        </div>
+      </div>
+      <nav class="tab-nav" role="tablist" aria-label="Main navigation">
+        <button
+          class="tab-btn active"
+          role="tab"
+          aria-selected="true"
+          aria-controls="panel-installation"
+          id="tab-installation"
+          data-tab="installation"
+        >Installation</button>
+        <button
+          class="tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="panel-reviews"
+          id="tab-reviews"
+          data-tab="reviews"
+        >Reviews</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <!-- ===== INSTALLATION TAB ===== -->
+    <section
+      id="panel-installation"
+      class="tab-panel active"
+      role="tabpanel"
+      aria-labelledby="tab-installation"
+    >
+      <div class="panel-header">
+        <h2>Installation Guide</h2>
+        <p class="panel-subtitle">Follow the steps below to install your PDI system correctly and safely.</p>
+      </div>
+
+      <div class="steps-grid">
+
+        <article class="step-card">
+          <div class="step-badge">Step 1</div>
+          <figure class="step-figure">
+            <img
+              src="images/step1-gather-tools.jpg"
+              alt="Tools and materials needed: PDI kit, wrenches, gloves, safety glasses"
+              onerror="this.src='images/placeholder.svg'; this.onerror=null;"
+            />
+            <figcaption>
+              <h3>Gather Tools &amp; Materials</h3>
+              <p>
+                Before starting, collect everything you need: the PDI additive kit,
+                a set of combination wrenches (8–17 mm), nitrile gloves, safety
+                glasses, a drip tray, and the vehicle's service manual. Ensure the
+                engine has cooled for at least 30 minutes.
+              </p>
+            </figcaption>
+          </figure>
+        </article>
+
+        <article class="step-card">
+          <div class="step-badge">Step 2</div>
+          <figure class="step-figure">
+            <img
+              src="images/step2-locate-fuel-line.jpg"
+              alt="Locating the main fuel supply line near the fuel filter housing"
+              onerror="this.src='images/placeholder.svg'; this.onerror=null;"
+            />
+            <figcaption>
+              <h3>Locate the Fuel Supply Line</h3>
+              <p>
+                Open the bonnet and identify the primary fuel supply line running
+                from the fuel filter housing to the high-pressure fuel pump. The
+                line is typically a rigid steel or braided-rubber hose labelled in
+                the service manual. Place the drip tray beneath this area before
+                proceeding.
+              </p>
+            </figcaption>
+          </figure>
+        </article>
+
+        <article class="step-card">
+          <div class="step-badge">Step 3</div>
+          <figure class="step-figure">
+            <img
+              src="images/step3-fit-injector.jpg"
+              alt="Fitting the PDI injector body inline with the fuel supply line"
+              onerror="this.src='images/placeholder.svg'; this.onerror=null;"
+            />
+            <figcaption>
+              <h3>Fit the PDI Injector Body</h3>
+              <p>
+                Using the supplied inline T-fitting, splice the PDI injector body
+                into the fuel supply line. Tighten all fittings to the torque
+                specified in the kit manual (typically 12–15 Nm). Do not
+                over-tighten. Ensure the flow-direction arrow on the injector body
+                points towards the fuel pump.
+              </p>
+            </figcaption>
+          </figure>
+        </article>
+
+        <article class="step-card">
+          <div class="step-badge">Step 4</div>
+          <figure class="step-figure">
+            <img
+              src="images/step4-connect-reservoir.jpg"
+              alt="Connecting the additive reservoir tank to the PDI injector"
+              onerror="this.src='images/placeholder.svg'; this.onerror=null;"
+            />
+            <figcaption>
+              <h3>Connect the Additive Reservoir</h3>
+              <p>
+                Mount the additive reservoir in the engine bay using the supplied
+                bracket, away from heat sources. Connect the feed tube from the
+                reservoir to the PDI injector inlet port. Secure all tubing with
+                the provided cable ties, leaving a small loop to absorb engine
+                vibration.
+              </p>
+            </figcaption>
+          </figure>
+        </article>
+
+        <article class="step-card">
+          <div class="step-badge">Step 5</div>
+          <figure class="step-figure">
+            <img
+              src="images/step5-wire-controller.jpg"
+              alt="Wiring the PDI electronic controller to the vehicle's ignition circuit"
+              onerror="this.src='images/placeholder.svg'; this.onerror=null;"
+            />
+            <figcaption>
+              <h3>Wire the Electronic Controller</h3>
+              <p>
+                Route the PDI controller's two-wire harness to the fuse box.
+                Connect the red wire to a switched +12 V ignition feed (fuse
+                position listed in the kit manual) and the black wire to a solid
+                chassis earth point. Use the supplied butt connectors and shrink
+                wrap for a weather-proof connection.
+              </p>
+            </figcaption>
+          </figure>
+        </article>
+
+        <article class="step-card">
+          <div class="step-badge">Step 6</div>
+          <figure class="step-figure">
+            <img
+              src="images/step6-fill-prime.jpg"
+              alt="Filling the reservoir with PDI additive and priming the system"
+              onerror="this.src='images/placeholder.svg'; this.onerror=null;"
+            />
+            <figcaption>
+              <h3>Fill, Prime &amp; Test</h3>
+              <p>
+                Fill the reservoir with the recommended PDI additive. Turn the
+                ignition to position II (engine off) for 10 seconds to allow the
+                pump to prime, then start the engine. Check all fittings for
+                leaks. The green LED on the controller confirms the system is
+                active. Log a baseline fuel consumption figure for comparison.
+              </p>
+            </figcaption>
+          </figure>
+        </article>
+
+      </div>
+
+      <!-- Send / Submit installation photos section -->
+      <div class="submit-section">
+        <h2>Share Your Installation</h2>
+        <p class="panel-subtitle">Completed your install? Send us your photos and we may feature them in the guide.</p>
+
+        <form class="submit-form" id="installationForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="install-name">Your Name <span class="required">*</span></label>
+              <input type="text" id="install-name" name="name" placeholder="e.g. James Parga" required />
+              <span class="field-error" id="install-name-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="install-email">Email Address <span class="required">*</span></label>
+              <input type="email" id="install-email" name="email" placeholder="you@example.com" required />
+              <span class="field-error" id="install-email-error"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="install-vehicle">Vehicle (Make, Model, Year)</label>
+            <input type="text" id="install-vehicle" name="vehicle" placeholder="e.g. Ford Ranger 3.2 TDCi 2021" />
+          </div>
+
+          <div class="form-group">
+            <label for="install-description">Installation Notes / Description <span class="required">*</span></label>
+            <textarea
+              id="install-description"
+              name="description"
+              rows="4"
+              placeholder="Describe any tips, challenges or modifications you encountered during installation…"
+              required
+            ></textarea>
+            <span class="field-error" id="install-description-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="install-photos">Upload Photos</label>
+            <div class="file-drop-zone" id="dropZone">
+              <span class="drop-icon">📷</span>
+              <span>Drag &amp; drop photos here or <label for="install-photos" class="file-label-link">browse</label></span>
+              <input
+                type="file"
+                id="install-photos"
+                name="photos"
+                accept="image/*"
+                multiple
+                class="file-input-hidden"
+              />
+              <span class="drop-hint">JPEG, PNG or WebP · max 5 MB each</span>
+            </div>
+            <div class="photo-previews" id="photoPreviews"></div>
+          </div>
+
+          <button type="submit" class="btn-primary">Submit Installation</button>
+          <p class="form-note">We will never share your email address with third parties.</p>
+          <div class="form-success" id="installFormSuccess" hidden>
+            ✅ Thank you! Your installation submission has been received.
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== REVIEWS TAB ===== -->
+    <section
+      id="panel-reviews"
+      class="tab-panel"
+      role="tabpanel"
+      aria-labelledby="tab-reviews"
+    >
+      <div class="panel-header">
+        <h2>Customer Reviews</h2>
+        <p class="panel-subtitle">See what other PDI users think — and share your own experience.</p>
+      </div>
+
+      <!-- Review summary bar -->
+      <div class="review-summary" id="reviewSummary">
+        <div class="rating-big">
+          <span class="rating-number" id="avgRating">4.7</span>
+          <div class="stars-display" id="avgStars" aria-label="4.7 out of 5 stars">
+            <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star half">★</span>
+          </div>
+          <span class="review-count" id="reviewCount">Based on 3 reviews</span>
+        </div>
+        <div class="rating-bars" id="ratingBars">
+          <div class="rating-bar-row"><span class="bar-label">5 ★</span><div class="bar-track"><div class="bar-fill" style="width:67%"></div></div><span class="bar-count">2</span></div>
+          <div class="rating-bar-row"><span class="bar-label">4 ★</span><div class="bar-track"><div class="bar-fill" style="width:33%"></div></div><span class="bar-count">1</span></div>
+          <div class="rating-bar-row"><span class="bar-label">3 ★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span class="bar-count">0</span></div>
+          <div class="rating-bar-row"><span class="bar-label">2 ★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span class="bar-count">0</span></div>
+          <div class="rating-bar-row"><span class="bar-label">1 ★</span><div class="bar-track"><div class="bar-fill" style="width:0%"></div></div><span class="bar-count">0</span></div>
+        </div>
+      </div>
+
+      <!-- Existing reviews list -->
+      <div class="reviews-list" id="reviewsList">
+
+        <article class="review-card">
+          <header class="review-header">
+            <div class="reviewer-info">
+              <span class="reviewer-avatar">M</span>
+              <div>
+                <strong class="reviewer-name">Mike T.</strong>
+                <span class="review-vehicle">Toyota Hilux 2.8 GD-6 · 2022</span>
+              </div>
+            </div>
+            <div class="review-meta">
+              <div class="stars-display" aria-label="5 out of 5 stars">
+                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+              </div>
+              <span class="review-date">12 Jan 2025</span>
+            </div>
+          </header>
+          <h3 class="review-title">Noticeable fuel savings after 2 tanks</h3>
+          <p class="review-body">
+            Fitted the PDI system in about 45 minutes following the online guide.
+            After two full tanks I'm seeing roughly 8–10% better economy on my
+            highway commute. The engine also feels smoother at idle. Very
+            impressed with the build quality of the kit — solid fittings and
+            clear instructions.
+          </p>
+        </article>
+
+        <article class="review-card">
+          <header class="review-header">
+            <div class="reviewer-info">
+              <span class="reviewer-avatar">S</span>
+              <div>
+                <strong class="reviewer-name">Sandra K.</strong>
+                <span class="review-vehicle">Volkswagen Amarok 3.0 TDI · 2020</span>
+              </div>
+            </div>
+            <div class="review-meta">
+              <div class="stars-display" aria-label="4 out of 5 stars">
+                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star empty">★</span>
+              </div>
+              <span class="review-date">3 Mar 2025</span>
+            </div>
+          </header>
+          <h3 class="review-title">Good product, installation guide could use more photos</h3>
+          <p class="review-body">
+            The product itself works well — DPF regeneration cycles are
+            noticeably less frequent. Installation took me closer to 90 minutes
+            because the fuel line routing on the Amarok is tight. Would love to
+            see more model-specific installation photos on the website. Four
+            stars for now; will update once I have a full season of data.
+          </p>
+        </article>
+
+        <article class="review-card">
+          <header class="review-header">
+            <div class="reviewer-info">
+              <span class="reviewer-avatar">D</span>
+              <div>
+                <strong class="reviewer-name">David O.</strong>
+                <span class="review-vehicle">Ford Ranger 2.0 Bi-Turbo · 2023</span>
+              </div>
+            </div>
+            <div class="review-meta">
+              <div class="stars-display" aria-label="5 out of 5 stars">
+                <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
+              </div>
+              <span class="review-date">18 Jun 2025</span>
+            </div>
+          </header>
+          <h3 class="review-title">Best diesel upgrade I've done</h3>
+          <p class="review-body">
+            Running this on a fleet of five Rangers. Average savings across the
+            fleet are sitting at around 9%. The support team was responsive when
+            I had a question about the controller calibration setting. Highly
+            recommended for any fleet operator looking to reduce diesel costs.
+          </p>
+        </article>
+
+      </div>
+
+      <!-- Write a review form -->
+      <div class="submit-section">
+        <h2>Write a Review</h2>
+        <p class="panel-subtitle">Share your experience with the PDI system.</p>
+
+        <form class="submit-form" id="reviewForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="review-name">Your Name <span class="required">*</span></label>
+              <input type="text" id="review-name" name="name" placeholder="e.g. Jane Smith" required />
+              <span class="field-error" id="review-name-error"></span>
+            </div>
+            <div class="form-group">
+              <label for="review-email">Email Address <span class="required">*</span></label>
+              <input type="email" id="review-email" name="email" placeholder="you@example.com" required />
+              <span class="field-error" id="review-email-error"></span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="review-vehicle">Vehicle (Make, Model, Year)</label>
+            <input type="text" id="review-vehicle" name="vehicle" placeholder="e.g. Toyota Hilux 2.8 GD-6 2022" />
+          </div>
+
+          <div class="form-group">
+            <label>Your Rating <span class="required">*</span></label>
+            <div class="star-picker" id="starPicker" role="radiogroup" aria-label="Select a star rating">
+              <button type="button" class="star-pick" data-value="1" aria-label="1 star">★</button>
+              <button type="button" class="star-pick" data-value="2" aria-label="2 stars">★</button>
+              <button type="button" class="star-pick" data-value="3" aria-label="3 stars">★</button>
+              <button type="button" class="star-pick" data-value="4" aria-label="4 stars">★</button>
+              <button type="button" class="star-pick" data-value="5" aria-label="5 stars">★</button>
+            </div>
+            <input type="hidden" id="review-rating" name="rating" value="" />
+            <span class="field-error" id="review-rating-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="review-title">Review Title <span class="required">*</span></label>
+            <input type="text" id="review-title" name="title" placeholder="Summarise your experience in one line" required />
+            <span class="field-error" id="review-title-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="review-body">Your Review <span class="required">*</span></label>
+            <textarea
+              id="review-body"
+              name="body"
+              rows="5"
+              placeholder="Tell us about your experience with the PDI system…"
+              required
+            ></textarea>
+            <span class="field-error" id="review-body-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="review-photos">Upload Photos (optional)</label>
+            <div class="file-drop-zone" id="reviewDropZone">
+              <span class="drop-icon">📷</span>
+              <span>Drag &amp; drop photos here or <label for="review-photos" class="file-label-link">browse</label></span>
+              <input
+                type="file"
+                id="review-photos"
+                name="photos"
+                accept="image/*"
+                multiple
+                class="file-input-hidden"
+              />
+              <span class="drop-hint">JPEG, PNG or WebP · max 5 MB each</span>
+            </div>
+            <div class="photo-previews" id="reviewPhotoPreviews"></div>
+          </div>
+
+          <button type="submit" class="btn-primary">Submit Review</button>
+          <p class="form-note">We will never share your email address with third parties.</p>
+          <div class="form-success" id="reviewFormSuccess" hidden>
+            ✅ Thank you for your review! It will appear after moderation.
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 Parga Diesel Injection. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="210" viewBox="0 0 400 210">
+  <rect width="400" height="210" fill="#e5e7eb"/>
+  <rect x="165" y="70" width="70" height="55" rx="6" fill="#9ca3af"/>
+  <circle cx="200" cy="82" r="8" fill="#6b7280"/>
+  <path d="M165 125 l25-30 18 22 12-14 20 22z" fill="#6b7280"/>
+  <text x="200" y="160" font-family="system-ui,sans-serif" font-size="13" fill="#6b7280" text-anchor="middle">Installation photo coming soon</text>
+</svg>
